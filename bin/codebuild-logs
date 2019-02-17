@@ -1,0 +1,70 @@
+#!/usr/bin/env node
+'use strict';
+
+const AWS = require('aws-sdk');
+const commandLineArgs = require('command-line-args');
+const moment = require('moment');
+
+// command line options
+const optionDefinitions = [
+  { name: 'profile', type: String },
+  { name: 'region', type: String },
+  { name: 'projects', type: String, multiple: true, defaultOption: true  }
+]
+// get command line args:
+
+const options = commandLineArgs(optionDefinitions);
+
+if (options.profile) {
+  AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: options.profile });
+}
+if  (options.region) {
+  AWS.config.update({ region: options.region });
+}
+
+const codebuild = new AWS.CodeBuild();
+
+void async function () {
+  if (!options.projects) {
+    console.log('No project specified. Please specify one or more of these projects on the command line:');
+    let nextToken='true';
+    let params = {
+      sortBy: 'NAME',
+      sortOrder: 'ASCENDING'
+    };
+    while (nextToken) {
+      let data = await (codebuild.listProjects(params).promise()); 
+      nextToken = data.nextToken;
+      params.nextToken = nextToken;
+      for (let item of data.projects) {
+        console.log(item);
+      }
+    }
+  } else {
+    for (let project of options.projects) {
+      const params = {
+        projectName: project, /* required */
+        sortOrder: 'DESCENDING'
+      };
+      try {
+        let data = await codebuild.listBuildsForProject(params).promise();
+        const buildId = data.ids[0].split(':')[1]; // only need part after : for codewatch logs
+        const cloudwatchlogs = new AWS.CloudWatchLogs();
+        const codewatchlogsParams = {
+          logGroupName: '/aws/codebuild/'+project, /* required */
+          logStreamName: buildId, /* required */
+          startFromHead: true
+        }
+        data = await (cloudwatchlogs.getLogEvents(codewatchlogsParams).promise());
+        console.log(project);
+        console.log('======================');
+        for (let event of data.events) {
+          console.log(moment(event.timestamp).format()+' '+event.message.trim());
+        }
+        console.log(); // space between projects
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+  }
+}();

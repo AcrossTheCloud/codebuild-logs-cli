@@ -1,0 +1,23 @@
+{
+  "name": "codebuild-logs",
+  "version": "0.9.0",
+  "license": "GPL-3.0",
+  "description": "Gets logs for most recent run of a codebuild project.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AcrossTheCloud/codebuild-logs-cli.git"
+  },
+  "author": "Matthew Berryman",
+  "bugs": {
+    "url": "https://github.com/AcrossTheCloud/codebuild-logs-cli/issues"
+  },
+  "homepage": "https://github.com/AcrossTheCloud/codebuild-logs-cli",
+  "bin": {
+    "codebuild-logs": "./bin/codebuild-logs.js"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.404.0",
+    "command-line-args": "^5.0.2",
+    "moment": "^2.24.0"
+  }
+}
