@@ -12,6 +12,9 @@
     "url": "https://github.com/AcrossTheCloud/codebuild-logs-cli/issues"
   },
   "homepage": "https://github.com/AcrossTheCloud/codebuild-logs-cli",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "bin": {
     "codebuild-logs": "./bin/codebuild-logs.js"
   },
