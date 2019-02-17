@@ -1,6 +1,6 @@
 {
   "name": "codebuild-logs-cli",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "license": "GPL-3.0",
   "description": "Gets logs for most recent run of a codebuild project.",
   "repository": {
@@ -16,7 +16,7 @@
     "node": ">=8.0.0"
   },
   "bin": {
-    "codebuild-logs": "./bin/codebuild-logs.js"
+    "codebuild-logs": "./bin/codebuild-logs"
   },
   "dependencies": {
     "aws-sdk": "^2.404.0",
