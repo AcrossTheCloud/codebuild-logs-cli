@@ -18,6 +18,6 @@ codebuild-logs --profile myprofile --region ap-southeast-2
 also specifies that the profile `myprofile` is used. Refer to https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html for more ways to specify credentials and region.
 
 To list the latest codebuild logs for particular project(s) list those as command line parameters, e.g.:
-```
-codebuild tba21-helpers tba21-api-dev
+```shell
+codebuild-logs tba21-helpers tba21-api-dev
 ```
