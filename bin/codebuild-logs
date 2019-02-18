@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+process.env.AWS_SDK_LOAD_CONFIG = 1; // pick up region from config file
+
 const AWS = require('aws-sdk');
 const commandLineArgs = require('command-line-args');
 const moment = require('moment');
