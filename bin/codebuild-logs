@@ -3,7 +3,6 @@
 
 process.env.AWS_SDK_LOAD_CONFIG = 1; // pick up region from config file
 
-const AWS = require('aws-sdk');
 const commandLineArgs = require('command-line-args');
 const moment = require('moment');
 
@@ -16,6 +15,12 @@ const optionDefinitions = [
 // get command line args:
 
 const options = commandLineArgs(optionDefinitions);
+
+if (options.profile) {
+  process.env.AWS_PROFILE=options.profile; // pick up default region for that profile from config file this way
+}
+
+const AWS = require('aws-sdk');
 
 if (options.profile) {
   AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: options.profile });
