@@ -19,8 +19,8 @@
     "codebuild-logs": "./bin/codebuild-logs"
   },
   "dependencies": {
-    "aws-sdk": "^2.404.0",
-    "command-line-args": "^5.0.2",
+    "aws-sdk": "^2.444.0",
+    "command-line-args": "^5.1.1",
     "moment": "^2.24.0"
   }
 }
